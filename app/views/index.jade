@@ -1,5 +1,20 @@
 extends layout
 
+block header
+  header Awesome todo list
+
 block content
-  h1= title
-  p Welcome to #{title}
+  div(class="container")
+    div(class="ui form")
+      div(class="ui fluid right labeled input")
+       input( type="text" ng-model="new_task")
+       button(class="ui primary button" ng-click="add(new_task)") Add
+    div(ng-repeat="todo in list.items")
+      div(class="task")
+       div(class="ui checkbox")
+        input(type="checkbox" name="box" ng-click="updateState(todo)" ng-model="todo.done")
+        label(ng-if="todo.done" class="done") {{todo.text}}
+        label(ng-if="!todo.done" class="undone") {{todo.text}}
+       button(class="mini ui  button negative" ng-click="delete(todo)")
+        i(class="remove icon")
+      hr
